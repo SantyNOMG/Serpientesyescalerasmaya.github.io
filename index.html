@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#234d43">
+  <meta name="description" content="Juega Serpientes y Escaleras con números mayas. Un tablero educativo para dos personas, sin instalaciones.">
+  <title>Serpientes y Escaleras · Números mayas</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23234d43'/%3E%3Ccircle cx='16' cy='10' r='3' fill='%23f2dfb9'/%3E%3Cpath d='M8 20h16M8 26h16' stroke='%23f2dfb9' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Inicio"><span class="brand-mark" aria-hidden="true">••<br>━</span> JUEGA Y DESCUBRE</a>
+    <button class="text-button" id="help-button">Cómo jugar <span aria-hidden="true">?</span></button>
+  </header>
+  <main>
+    <div class="heading"><div><p class="eyebrow">UN RECORRIDO ENTRE PUNTOS Y BARRAS</p><h1>Serpientes <i>y</i> Escaleras</h1><p class="subtitle">Llega al 100. Descubre los números mayas en el camino.</p></div><span class="edition">2 JUGADORES<br><strong>Numeración maya</strong></span></div>
+    <div class="game-layout">
+      <section class="board-section" aria-label="Tablero de juego">
+        <div class="board-caption"><span><span class="legend-line ladder-line"></span> Escaleras: sube</span><span><span class="legend-line snake-line"></span> Serpientes: baja</span><span class="tap-hint">Toca una casilla para aprender</span></div>
+        <div class="board-frame"><div class="board" id="board" role="group" aria-label="100 casillas en zigzag, desde abajo a la izquierda"><div id="cells" class="cells"></div><svg id="routes" class="routes" viewBox="0 0 1000 1000" aria-hidden="true"></svg><div id="tokens" class="tokens" aria-hidden="true"></div></div></div>
+        <div class="board-footer"><span><b>INICIO</b> · Abajo a la izquierda</span><span>La meta requiere un tiro exacto.</span></div>
+      </section>
+      <aside class="sidebar" aria-label="Controles y guía">
+        <section class="play-card">
+          <p class="eyebrow" id="turn-label">ES TU TURNO</p><h2 id="turn-title">Jugador 1 <span class="player-dot jade"></span></h2>
+          <div class="players"><div id="player-0" class="player active"><span class="mini-token jade">1</span><span>Jugador 1<small id="position-0">En la salida</small></span><strong id="score-0">0<span>/100</span></strong></div><div id="player-1" class="player"><span class="mini-token clay">2</span><span>Jugador 2<small id="position-1">En la salida</small></span><strong id="score-1">0<span>/100</span></strong></div></div>
+          <div class="dice-area"><div id="die" class="die" role="img" aria-label="Dado listo para lanzar"></div><div><span class="small-label">TU DADO</span><p id="dice-result">¡Que empiece el viaje!</p></div></div>
+          <button id="roll-button" class="roll-button">Lanzar dado <span aria-hidden="true">⚄</span></button>
+          <p id="game-message" class="game-message" role="status" aria-live="polite" aria-atomic="true">Jugador 1, lanza el dado para comenzar.</p>
+          <button id="reset-button" class="reset-button"><span aria-hidden="true">↻</span> Reiniciar partida</button>
+        </section>
+        <section class="learn-card" aria-labelledby="learn-title"><p class="eyebrow">PEQUEÑA GUÍA</p><h2 id="learn-title">Lee el tablero</h2><div class="symbol-key"><div><span data-maya="1"></span><strong>Punto</strong><small>vale 1</small></div><div><span data-maya="5"></span><strong>Barra</strong><small>vale 5</small></div><div><span data-maya="0"></span><strong>Concha</strong><small>vale 0</small></div></div><div class="number-detail"><div id="detail-symbol"></div><div><span class="small-label" id="detail-title">CASILLA 24</span><p id="detail-formula">1 × 20 + 4 = <b>24</b></p><small>Veintenas arriba.<br>Unidades abajo.</small></div></div><p class="learn-note">Los puntos van sobre las barras. Cada nivel puede representar de 0 a 19.</p></section>
+      </aside>
+    </div>
+    <footer class="page-footer"><span>Un dado, dos jugadores, cien descubrimientos.</span><a href="https://maya.nmai.si.edu/es/el-sol-maya/juego-de-matematica-maya" target="_blank" rel="noopener noreferrer">Explora la matemática maya · Smithsonian ↗</a></footer>
+  </main>
+  <dialog id="help-dialog"><button class="dialog-close" id="close-help" aria-label="Cerrar instrucciones">×</button><p class="eyebrow">ANTES DE LANZAR</p><h2>El camino al 100</h2><ol><li>Ambos jugadores empiezan fuera del tablero, en la posición 0. El jugador 1 comienza.</li><li>Lanza el dado. Tu ficha avanza automáticamente y después juega la otra persona, incluso si sacaste un 6.</li><li>Si caes al pie de una escalera, subes. Si caes en la cabeza de una serpiente, bajas hasta su cola.</li><li>Gana quien llegue exactamente a 100. Si te pasas, permaneces donde estás y cedes el turno.</li></ol><p>Se puede compartir casilla: no se eliminan fichas.</p><h3>¿Cómo se leen los números?</h3><p>Un punto vale 1, una barra vale 5 y una concha vale 0. A partir de 20 se usan dos niveles: el de arriba se multiplica por 20 y se suma al de abajo. Por ejemplo, 100 es una barra arriba (5 × 20) y una concha abajo (0).</p><p>Toca cualquier casilla para ver su número ampliado y su equivalencia. Usa Tab y las flechas para explorar el tablero con teclado.</p></dialog>
+  <noscript>Activa JavaScript en tu navegador para jugar.</noscript>
+</body>
+</html>
